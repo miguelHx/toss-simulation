@@ -1,5 +1,5 @@
 """
-Helper helper_methods functions.
+Helper functions.
 """
 
 
@@ -26,18 +26,6 @@ def n_choose_k(n, k):
     :return: the value of the binomial coefficient.
     """
     return factorial(n) / (factorial(k) * factorial(n-k))
-
-
-# def binomial_pmf(n, k, p):
-#     """
-#     Computes the probability of getting 'k' of some random event with probability 'p'
-#     out of 'n' trials assuming that the outcome of each trial is independent.
-#     :param n: the number of trials
-#     :param k: number of successes
-#     :param p: the probability of an individual successful outcome
-#     :return: the probability of getting k successes out of n trials
-#     """
-#     return n_choose_k(n, k) * (p**k) * (1-p)**(n-k)
 
 
 def binomial_pmf(n, k, p, t):
