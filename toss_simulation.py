@@ -5,44 +5,8 @@ What is the probability mass function of the total number of tails?  Start at ma
 """
 import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
-from helper_methods.stats import binomial_pmf, simulated_binomial_pmf
-
-
-def get_simulated_probabilities(start, finish, n, p, t, simulations):
-    """
-    Runs simulations to get experimental probabilities for the coin toss problem for
-    each integer between start and finish.
-    By the law of big numbers, the more simulations we do, the closer we will get
-    to the true theoretical probability
-    :param start: integer
-    :param finish: integer
-    :param n: integer - number of coins/trials
-    :param p: float - probability of outcome of interest
-    :param t: integer - number of tosses (in case we get tails, up to t tosses)
-    :param simulations - the number of times we want to simulate
-    :return: list of simulated probabilities
-    """
-    output = []
-    for i in range(start, finish+1):
-        output.append(simulated_binomial_pmf(n, i, p, t, simulations))
-    return output
-
-
-def get_theoretical_probabilities(start, finish, n, p, t):
-    """
-    Compute the theoretical probabilities and return a list of them for each
-    integer between start and finish
-    :param start: integer
-    :param finish: integer
-    :param n: integer - number of coins/trials
-    :param p: float - probability of outcome of interest
-    :param t: integer - number of tosses (in case we get tails, up to t tosses)
-    :return: list of theoretical probabilities
-    """
-    output = []
-    for i in range(start, finish+1):
-        output.append(binomial_pmf(n, i, p, t))
-    return output
+from helper_methods.stats import simulated_binomial_pmf
+from helper_methods.stats import get_theoretical_probabilities, get_simulated_probabilities
 
 
 def plot_coin_toss(n, k, p, t, simulations):
@@ -50,7 +14,7 @@ def plot_coin_toss(n, k, p, t, simulations):
     x = range(start, end+1)
 
     width = 10
-    height = 8
+    height = 7
     plt.figure(figsize=(width, height))  # window size
 
     # plot theoretical y
@@ -70,7 +34,8 @@ def plot_coin_toss(n, k, p, t, simulations):
     txt = "'k' tails out of 'n' coins, with a max of 't' tosses (RE-toss on tails)"
     plt.figtext(0.5, 0.015, txt, wrap=True, horizontalalignment='center', fontsize=12)
 
-    plt.title("Coin Toss Simulation")
+    theoretical_binomial_pmf_equation = r"$P(X=k)=\binom{n}{k}((1-p)^t)^k(1-(1-p)^t)^{(n-k)}$"  # laTex
+    plt.title("Binomial Dist. Simulation: {}".format(theoretical_binomial_pmf_equation))
     plt.xlabel("K tails")
     plt.ylabel("Probability")
     plt.show()
@@ -86,16 +51,16 @@ def main():
     This program will simulate the coin toss scenario above and compare simulated results to theoretical results.
     """
     t = 2
-    n = 50
-    k = 50
+    n = 25
+    k = 25
     p_tails = 0.5
-    result = binomial_pmf(n, k, p_tails, t)
-    print("Theoretical probability with new formula: {}".format(result))
-
-    num_simulations = 1000
+    # result = binomial_pmf(n, k, p_tails, t)
+    # print("Theoretical probability with new formula: {}".format(result))
+    #
+    num_simulations = 500
     args = (n, k, p_tails, t, num_simulations)
-    print("Simulating coin toss with n={}, k={}, p_tails={}, t={}, and trials={}".format(*args))
-    simulate_coin_toss_tails(*args)
+    # print("Simulating coin toss with n={}, k={}, p_tails={}, t={}, and trials={}".format(*args))
+    # simulate_coin_toss_tails(*args)
     plot_coin_toss(*args)
 
 

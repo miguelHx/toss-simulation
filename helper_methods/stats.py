@@ -77,3 +77,40 @@ def simulated_binomial_pmf(n, k, p, t, simulations):
             desired_result_count += 1
     # Probability = # of desired outcomes / # of total outcomes
     return desired_result_count / simulations
+
+
+def get_simulated_probabilities(start, finish, n, p, t, simulations):
+    """
+    Runs simulations to get experimental probabilities for the coin toss problem for
+    each integer between start and finish.
+    By the law of big numbers, the more simulations we do, the closer we will get
+    to the true theoretical probability
+    :param start: integer
+    :param finish: integer
+    :param n: integer - number of coins/trials
+    :param p: float - probability of outcome of interest
+    :param t: integer - number of tosses (in case we get tails, up to t tosses)
+    :param simulations - the number of times we want to simulate
+    :return: list of simulated probabilities
+    """
+    output = []
+    for i in range(start, finish+1):
+        output.append(simulated_binomial_pmf(n, i, p, t, simulations))
+    return output
+
+
+def get_theoretical_probabilities(start, finish, n, p, t):
+    """
+    Compute the theoretical probabilities and return a list of them for each
+    integer between start and finish
+    :param start: integer
+    :param finish: integer
+    :param n: integer - number of coins/trials
+    :param p: float - probability of outcome of interest
+    :param t: integer - number of tosses (in case we get tails, up to t tosses)
+    :return: list of theoretical probabilities
+    """
+    output = []
+    for i in range(start, finish+1):
+        output.append(binomial_pmf(n, i, p, t))
+    return output
