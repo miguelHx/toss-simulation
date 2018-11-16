@@ -5,18 +5,38 @@ What is the probability mass function of the total number of tails?  Start at ma
 """
 import random
 import matplotlib.pyplot as plt
-from helper_methods.stats import binomial_pmf
+from helper_methods.stats import binomial_pmf, simulated_binomial_pmf
+
+
+def get_simulated_probabilities(start, finish, n, p, t, simulations):
+    """
+    Runs simulations to get experimental probabilities for the coin toss problem for
+    each integer between start and finish.
+    By the law of big numbers, the more simulations we do, the closer we will get
+    to the true theoretical probability
+    :param start: integer
+    :param finish: integer
+    :param n: integer - number of coins/trials
+    :param p: float - probability of outcome of interest
+    :param t: integer - number of tosses (in case we get tails, up to t tosses)
+    :param simulations - the number of times we want to simulate
+    :return: list of simulated probabilities
+    """
+    output = []
+    for i in range(start, finish+1):
+        output.append(simulated_binomial_pmf(n, i, p, t, simulations))
+    return output
 
 
 def get_theoretical_probabilities(start, finish, n, p, t):
     """
     Compute the theoretical probabilities and return a list of them for each
-    integer between start and finish with n coins, p probability, and t tosses
+    integer between start and finish
     :param start: integer
     :param finish: integer
-    :param n: integer
-    :param p: float
-    :param t: integer
+    :param n: integer - number of coins/trials
+    :param p: float - probability of outcome of interest
+    :param t: integer - number of tosses (in case we get tails, up to t tosses)
     :return: list of theoretical probabilities
     """
     output = []
@@ -25,14 +45,17 @@ def get_theoretical_probabilities(start, finish, n, p, t):
     return output
 
 
-def plot_coin_toss(n, k, p, t):
+def plot_coin_toss(n, p, t, simulations):
     start, end = 1, 10
     x = range(start, end+1)
 
     y_theoretical = get_theoretical_probabilities(start, end, n, p, t)
     y_theoretical_line, = plt.plot(x, y_theoretical, 'b--', label='Theoretical')
 
-    plt.legend(handles=[y_theoretical_line])
+    y_simulated = get_simulated_probabilities(start, end, n, p, t, simulations)
+    y_simulated_line, = plt.plot(x, y_simulated, 'r--', label='Simulated (Experimental)')
+
+    plt.legend(handles=[y_theoretical_line, y_simulated_line])
 
     plt.title("Probability distribution for getting k tails out of n coin tosses")
     plt.xlabel("Number of Tails in Simulation")
@@ -40,28 +63,8 @@ def plot_coin_toss(n, k, p, t):
     plt.show()
 
 
-def simulate_coin_toss_tails(simulations, num_coins, k, tosses, p_tails):
-    # p_heads = 1-p_tails
-    desired_result_count = 0
-    for i in range(simulations):
-        tails_count = 0
-        heads_count = 0
-        # flip coin 'num_coins' times
-        for j in range(num_coins):
-            # toss 'tosses' number of times (only RE-toss on tails)
-            for t in range(tosses):
-                coin = random.random()
-                if p_tails < coin:
-                    # if tails, keep tossing, unless at last toss
-                    if t == tosses-1:
-                        tails_count += 1
-                else:
-                    # if heads, stop tossing, move to next coin toss
-                    heads_count += 1
-                    break
-        if tails_count == k:
-            desired_result_count += 1
-    final_result = desired_result_count / simulations
+def simulate_coin_toss_tails(num_coins, k, p_tails, tosses, simulations):
+    final_result = simulated_binomial_pmf(num_coins, k, p_tails, tosses, simulations)
     print("Result: {}".format(final_result))
 
 
@@ -76,11 +79,11 @@ def main():
     result = binomial_pmf(n, k, p_tails, t)
     print("Theoretical probability with new formula: {}".format(result))
 
-    num_simulations = 10000
+    num_simulations = 100
     args = (n, k, t, p_tails, num_simulations)
     print("Simulating coin toss with n={}, k={}, t={}, p_tails={}, and trials={}".format(*args))
-    simulate_coin_toss_tails(num_simulations, n, k, t, p_tails)
-    plot_coin_toss(n, k, p_tails, t)
+    simulate_coin_toss_tails(n, k, p_tails, t, num_simulations)
+    plot_coin_toss(n, p_tails, t, num_simulations)
 
 
 if __name__ == '__main__':
