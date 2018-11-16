@@ -3,7 +3,7 @@ You toss n coins, each showing heads with probability p, independently of the ot
 Each coin that shows tails is tossed again (once more).  Let X be the total number of tails
 What is the probability mass function of the total number of tails?  Start at main() function.
 """
-import random
+import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 from helper_methods.stats import binomial_pmf, simulated_binomial_pmf
 
@@ -49,16 +49,27 @@ def plot_coin_toss(n, p, t, simulations):
     start, end = 1, 10
     x = range(start, end+1)
 
+    plt.figure(figsize=(8, 8))  # window size
+
+    # plot theoretical y
     y_theoretical = get_theoretical_probabilities(start, end, n, p, t)
-    y_theoretical_line, = plt.plot(x, y_theoretical, 'b--', label='Theoretical')
+    y_theoretical_line, = plt.plot(x, y_theoretical, 'b-', label='Theoretical', marker='o')
 
+    # plot simulated y
     y_simulated = get_simulated_probabilities(start, end, n, p, t, simulations)
-    y_simulated_line, = plt.plot(x, y_simulated, 'r--', label='Simulated (Experimental)')
+    y_simulated_line, = plt.plot(x, y_simulated, 'r--', label='Simulated (Experimental)', marker='o')
 
-    plt.legend(handles=[y_theoretical_line, y_simulated_line])
+    # custom legend items
+    legend_item1 = mpatches.Patch(color='red', label="simulations = {}".format(simulations))
+    legend_item2 = mpatches.Patch(color='black', label="t = {}".format(t))
+    plt.legend(handles=[y_theoretical_line, y_simulated_line, legend_item1, legend_item2])
 
-    plt.title("Probability distribution for getting k tails out of n coin tosses")
-    plt.xlabel("Number of Tails in Simulation")
+    # description (under xlabel)
+    txt = "'k' tails out of 'n' coins, with a max of 't' tosses (RE-toss on tails)"
+    plt.figtext(0.5, 0.015, txt, wrap=True, horizontalalignment='center', fontsize=12)
+
+    plt.title("Coin Toss Simulation")
+    plt.xlabel("K tails")
     plt.ylabel("Probability")
     plt.show()
 
@@ -72,14 +83,14 @@ def main():
     """
     This program will simulate the coin toss scenario above and will compare simulated results to theoretical results.
     """
-    t = 2
+    t = 1
     n = 10
     k = 3
     p_tails = 0.5
     result = binomial_pmf(n, k, p_tails, t)
     print("Theoretical probability with new formula: {}".format(result))
 
-    num_simulations = 100
+    num_simulations = 1000
     args = (n, k, t, p_tails, num_simulations)
     print("Simulating coin toss with n={}, k={}, t={}, p_tails={}, and trials={}".format(*args))
     simulate_coin_toss_tails(n, k, p_tails, t, num_simulations)
