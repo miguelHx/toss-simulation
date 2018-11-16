@@ -81,7 +81,7 @@ def simulate_coin_toss_tails(num_coins, k, p_tails, tosses, simulations):
 
 def main():
     """
-    This program will simulate the coin toss scenario above and will compare simulated results to theoretical results.
+    This program will simulate the coin toss scenario above and compare simulated results to theoretical results.
     """
     t = 1
     n = 10

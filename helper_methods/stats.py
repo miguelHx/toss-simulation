@@ -75,5 +75,5 @@ def simulated_binomial_pmf(n, k, p, t, simulations):
         # if this simulation gave a desired outcome ('k' tails), then inc counter
         if tails_count == k:
             desired_result_count += 1
-    # Probability = desired outcomes / total outcomes
+    # Probability = # of desired outcomes / # of total outcomes
     return desired_result_count / simulations
