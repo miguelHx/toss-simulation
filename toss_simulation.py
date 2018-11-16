@@ -91,9 +91,9 @@ def main():
     print("Theoretical probability with new formula: {}".format(result))
 
     num_simulations = 1000
-    args = (n, k, t, p_tails, num_simulations)
-    print("Simulating coin toss with n={}, k={}, t={}, p_tails={}, and trials={}".format(*args))
-    simulate_coin_toss_tails(n, k, p_tails, t, num_simulations)
+    args = (n, k, p_tails, t, num_simulations)
+    print("Simulating coin toss with n={}, k={}, p_tails={}, t={}, and trials={}".format(*args))
+    simulate_coin_toss_tails(*args)
     plot_coin_toss(n, p_tails, t, num_simulations)
 
 
