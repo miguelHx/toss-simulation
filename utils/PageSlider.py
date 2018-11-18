@@ -44,7 +44,7 @@ class PageSlider(matplotlib.widgets.Slider):
         self.on_changed(self._update)
 
     def _update(self, event):
-        if type(event).__name__ != 'int':
+        if type(event).__name__ != 'int' and type(event).__name__ != 'float64':
             super(PageSlider, self)._update(event)
         i = int(self.val)
         if i >= self.valmax:

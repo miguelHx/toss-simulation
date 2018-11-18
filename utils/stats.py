@@ -64,7 +64,7 @@ def simulated_binomial_pmf(n, k, p, t, simulations):
             # toss 't' number of times (only RE-toss on tails)
             for _t in range(t):
                 coin = random.random()
-                if p < coin:
+                if coin < p:
                     # if tails, keep tossing, unless we are at last toss
                     if _t == t-1:
                         tails_count += 1
