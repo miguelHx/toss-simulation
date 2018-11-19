@@ -6,10 +6,10 @@ Each coin that shows tails is tossed again (once more).  Let X be the total numb
 What is the probability mass function of the total number of tails X?
 
 I came up with the following formula:
-P(X=k)=\binom{n}{k}((1-p)^t)^k(1-(1-p)^t)^{(n-k)}
+![Alt text](/img/formula.png?raw=true "Formula image in img/formula.png")
+
 Where X represents the number of tails, n represents the number of coins tossed, k is the number of tails that we choose, p is the probability of getting heads,
-and t is the number of total maximum tosses we make.  For example, if t = 1, then we toss each coin only once, regardless of whether
-or not we land tails.  However, if t = 2, then after the first toss, if we have a tails, then we toss once more.
+and t is the number of total maximum tosses we make.  For example, if t = 1, then we toss each coin only once, regardless of whether or not we land tails.  However, if t = 2, then after the first toss, if we have a tails, then we toss once more.
 If t = 3, then on tails, we toss twice more (1 for initial toss + 2 extra tosses on tails = 3 total tosses).
 
 ## Motivation
@@ -24,6 +24,9 @@ in python?"
 * [Python PEP8](https://www.python.org/dev/peps/pep-0008/)
  
 ## Screenshots
+![Alt text](/img/plot-t-1.png "Plot 1 image in img/plot-t-1.png")
+![Alt text](/img/plot-t-2.png "Plot 2 image in img/plot-t-2.png")
+![Alt text](/img/plot-t-3.png "Plot 3 image in img/plot-t-3.png")
 
 
 ## Tech/framework(s) used
