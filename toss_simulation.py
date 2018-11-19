@@ -51,7 +51,6 @@ def plot_coin_toss(n, k, p, t, simulations):
         # set t label
         legend_item2.set_label("t = {}".format(int(val)+1))
         ax.legend(handles=[*handles, legend_item1, legend_item2])
-
         # compute new theoretical y
         new_theoretical_y = get_theoretical_probabilities(start, end, n, p, int(val)+1)
         y_theoretical_line.set_ydata(new_theoretical_y)
@@ -79,7 +78,7 @@ def main():
     t = 1
     n = 25
     k = 25
-    p_tails = 0.7
+    p_tails = 0.5
     # result = binomial_pmf(n, k, p_tails, t)
     # print("Theoretical probability with new formula: {}".format(result))
 

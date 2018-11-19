@@ -33,7 +33,7 @@ def binomial_pmf(n, k, p, t):
     """
     Computes the probability of getting 'k' of some random event with probability 'p'
     out of 'n' trials assuming that the outcome of each trial is independent.  Also, the catch to this one is that
-    if we get tails, we must toss 't' times
+    if we get tails, we must toss a maximum of 't' times if we keep getting tails
     :param n: the number of trials
     :param k: number of successes
     :param p: the probability of an individual desired outcome
@@ -47,7 +47,7 @@ def simulated_binomial_pmf(n, k, p, t, simulations):
     """
     Same as binomial_pmf, except now we are running the actual simulation.
     :param n: the number of trials (in our case, coins to toss)
-    :param k: number of successes out of n trials
+    :param k: number of successes out of n trials (number of tails out of n coins tossed)
     :param p: the probability of an individual desired outcome
     :param t: the number of tosses to make when getting tails
     :param simulations: the number of simulations to run.
