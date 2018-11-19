@@ -10,8 +10,8 @@ from utils.stats import simulated_binomial_pmf
 from utils.stats import get_theoretical_probabilities, get_simulated_probabilities
 
 
-def plot_coin_toss(n, k, p, t, simulations):
-    start, end = 1, k
+def plot_coin_toss(n, p, t, simulations):
+    start, end = 1, n
     x = range(start, end+1)
 
     width = 10
@@ -77,13 +77,13 @@ def main():
     """
     t = 1
     n = 25
-    k = 25
+    # k = 4
     p_tails = 0.5
     # result = binomial_pmf(n, k, p_tails, t)
     # print("Theoretical probability with new formula: {}".format(result))
 
     num_simulations = 1000
-    args = (n, k, p_tails, t, num_simulations)
+    args = (n, p_tails, t, num_simulations)
     # print("Simulating coin toss with n={}, k={}, p_tails={}, t={}, and trials={}".format(*args))
     # simulate_coin_toss_tails(*args)
     plot_coin_toss(*args)
