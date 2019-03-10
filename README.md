@@ -5,7 +5,7 @@ Here is the problem:
 Each coin that shows tails is tossed again (once more).  Let X be the total number of tails.
 What is the probability mass function of the total number of tails X?
 
-I came up with the following formula:
+My good friend Max and I came up with the following formula:
 ![Alt text](/img/formula.png?raw=true "Formula image in img/formula.png")
 
 Where X represents the number of tails, n represents the number of coins tossed, k is the number of tails that we choose, p is the probability of getting heads,
